@@ -1,0 +1,48 @@
+$width: 400px;
+$tile-count: 4;
+$tile-padding: 15px;
+$tile-size: ($width - $tile-padding * ($tile-count + 1)) / $tile-count;
+
+
+#game {
+  position: relative;
+  width: $width;
+  height: $width; // The gameboard is a square
+
+  .grid-container {
+    position: absolute;   // the grid is absolutely positioned
+    z-index: 1;           // IMPORTANT to set the z-index for layering
+    margin: 0 auto;       // center
+
+    .grid-cell {
+      width: $tile-size;              // set the cell width
+      height: $tile-size;             // set the cell height
+      margin: $tile-padding;   // the padding between lower cells
+      margin-right: $tile-padding;    // the padding between the right cell
+      // ...
+    }
+  }
+  .tile-container {
+    position: absolute;
+    z-index: 2;
+
+    .tile {
+      width: $tile-size;        // tile width
+      height: $tile-size;       // tile height
+
+      @for $x from 1 through $tile-count {
+        @for $y from 1 through $tile-count {
+          $zeroOffsetX: $x - 1;
+          $zeroOFfsetY: $y - 1;
+          $newX: ($tile-size) * ($zeroOffsetX) + ($tile-padding * $zeroOffsetX);
+          $newY: ($tile-size) * ($zeroOffsetY) + ($tile-padding * $zeroOffsetY);
+
+          &.position-#{$zeroOffsetX}-#{$zeroOffsetY} {
+            -webkit-transform: translate($newX, $newY);
+            transform: translate($newX, $newY);
+          }
+        }
+      }
+    }
+  }
+}
