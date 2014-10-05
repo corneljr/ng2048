@@ -1,7 +1,23 @@
+@import "_functions";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+
+
 $width: 400px;
 $tile-count: 4;
 $tile-padding: 15px;
 $tile-size: ($width - $tile-padding * ($tile-count + 1)) / $tile-count;
+$colors:  #EEE4DA, 
+          #EAE0C8, 
+          #F59563, 
+          #3399ff, 
+          #ffa333, 
+          #cef030, 
+          #E8D8CE, 
+          #990303,
+          #6BA5DE, 
+          #DCAD60, 
+          #B60022;
+
 
 
 #game {
@@ -41,6 +57,12 @@ $tile-size: ($width - $tile-padding * ($tile-count + 1)) / $tile-count;
             -webkit-transform: translate($newX, $newY);
             transform: translate($newX, $newY);
           }
+        }
+      }
+
+      @for $i from 1 through length($colors) {
+        &.tile-#{power(2, $i)} .tile-inner {
+          background: nth($colors, $i)
         }
       }
     }
